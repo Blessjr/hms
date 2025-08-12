@@ -9,7 +9,7 @@ if(isset($_POST['submit']))
 		if($qsql = mysqli_query($con,$sql))
 		{
 			echo "<div class='alert alert-success'>
-			Admin Record updated successfully
+			Enregistrement administrateur mis à jour avec succès
 			</div>";
 		}
 		else
@@ -23,7 +23,7 @@ if(isset($_POST['submit']))
 		if($qsql = mysqli_query($con,$sql))
 		{
 			echo "<div class='alert alert-success'>
-			Admin Record Inserted successfully
+			Enregistrement administrateur inséré avec succès
 			</div>";
 		}
 		else
@@ -43,7 +43,7 @@ if(isset($_GET['editid']))
 
 <div class="container-fluid">
 	<div class="block-header">
-		<h2 class="text-center"> Add New Admin </h2>
+		<h2 class="text-center"> Ajouter un nouvel administrateur </h2>
 	</div>
 	<div class="row clearfix">
 		<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
@@ -51,59 +51,59 @@ if(isset($_GET['editid']))
 
 				<form method="post" action="" name="frmadminprofile" onSubmit="return validateform()">
 
-
 					<div class="body">
 						<div class="row clearfix">
 							<div class="col-sm-12">   
 								<div class="form-group">
-									<label> Admin Name</label>
+									<label> Nom de l’administrateur</label>
 									<div class="form-line">
 										<input type="text" class="form-control"  name="adminname" id="adminname" value="<?php echo $rsedit['adminname']; ?>"/>
 									</div>
 								</div>
-
 							</div>	
-
 						</div>
+
 						<div class="row clearfix"> 
 							<div class="col-sm-12">                           
 								<div class="form-group">
-									<label>Admin Log in Id</label>
+									<label>Identifiant de connexion administrateur</label>
 									<div class="form-line">
 										<input type="text" class="form-control" name="loginid" id="loginid" value="<?php echo $rsedit['loginid']; ?>" />
 									</div>
 								</div>    
 							</div>                      
 						</div>  
+
 						<div class="row clearfix"> 
 							<div class="col-sm-12">                              
 								<div class="form-group">
-									<label> Admin Password</label>
+									<label> Mot de passe administrateur</label>
 									<div class="form-line">
 										<input type="password" class="form-control"  name="password" id="password" value="<?php echo $rsedit['password']; ?>"/>
 									</div>
 								</div>
 							</div>                          
 						</div> 
+
 						<div class="row clearfix"> 
 							<div class="col-sm-12">                              
 								<div class="form-group">
-									<label>Confirm Admin Password</label>
+									<label>Confirmer le mot de passe administrateur</label>
 									<div class="form-line">
 										<input type="password" class="form-control"  name="cnfirmpassword" id="cnfirmpassword" value="<?php echo $rsedit['confirmpassword']; ?>"/>
 									</div>
 								</div>
 							</div>                          
 						</div> 
+
 						<div class="row clearfix">                            
 							<div class="col-sm-3 col-xs-12">
 								<div class="form-group drop-custum">
-									<label>Status</label>
-
+									<label>Statut</label>
 									<select class="form-control show-tick" name="select">
-										<option value="" selected>Select One</option>
+										<option value="" selected>Choisir</option>
 										<?php
-										$arr = array("Active","Inactive");
+										$arr = array("Actif","Inactif");
 										foreach($arr as $val)
 										{
 											if($val == $rsedit['status'])
@@ -122,75 +122,73 @@ if(isset($_GET['editid']))
 						</div>                    
 
 						<div class="col-sm-12">
-							<input type="submit" class="btn btn-raised g-bg-cyan" name="submit" id="submit" value="Submit" />
-
+							<input type="submit" class="btn btn-raised g-bg-cyan" name="submit" id="submit" value="Soumettre" />
 						</div>
 					</div>
-
-
 				</form>
+
 			</div>
 		</div>
 	</div>
 </div>
 
-				<?php
-				include("adfooter.php");
-				?>
-				<script type="application/javascript">
-var alphaExp = /^[a-zA-Z]+$/; //Variable to validate only alphabets
-var alphaspaceExp = /^[a-zA-Z\s]+$/; //Variable to validate only alphabets and space
-var numericExpression = /^[0-9]+$/; //Variable to validate only numbers
-var alphanumericExp = /^[0-9a-zA-Z]+$/; //Variable to validate numbers and alphabets
-var emailExp = /^[\w\-\.\+]+\@[a-zA-Z0-9\.\-]+\.[a-zA-z0-9]{2,4}$/; //Variable to validate Email ID 
+<?php
+include("adfooter.php");
+?>
+<script type="application/javascript">
+var alphaExp = /^[a-zA-Z]+$/; //Variable pour valider uniquement les lettres
+var alphaspaceExp = /^[a-zA-Z\s]+$/; //Variable pour valider uniquement les lettres et espaces
+var numericExpression = /^[0-9]+$/; //Variable pour valider uniquement les chiffres
+var alphanumericExp = /^[0-9a-zA-Z]+$/; //Variable pour valider chiffres et lettres
+var emailExp = /^[\w\-\.\+]+\@[a-zA-Z0-9\.\-]+\.[a-zA-z0-9]{2,4}$/; //Variable pour valider l'adresse email
 
 function validateform()
 {
 	if(document.frmadmin.adminname.value == "")
 	{
-		alert("Admin name should not be empty..");
+		alert("Le nom de l’administrateur ne doit pas être vide.");
 		document.frmadmin.adminname.focus();
 		return false;
 	}
 	else if(!document.frmadmin.adminname.value.match(alphaspaceExp))
 	{
-		alert("Admin name not valid..");
+		alert("Nom de l’administrateur invalide.");
 		document.frmadmin.adminname.focus();
 		return false;
 	}
 	else if(document.frmadmin.loginid.value == "")
 	{
-		alert("Login ID should not be empty..");
+		alert("L’identifiant de connexion ne doit pas être vide.");
 		document.frmadmin.loginid.focus();
 		return false;
 	}
 	else if(!document.frmadmin.loginid.value.match(alphanumericExp))
 	{
-		alert("Login ID not valid..");
+		alert("Identifiant de connexion invalide.");
 		document.frmadmin.loginid.focus();
 		return false;
 	}
 	else if(document.frmadmin.password.value == "")
 	{
-		alert("Password should not be empty..");
+		alert("Le mot de passe ne doit pas être vide.");
 		document.frmadmin.password.focus();
 		return false;
 	}
 	else if(document.frmadmin.password.value.length < 8)
 	{
-		alert("Password length should be more than 8 characters...");
+		alert("Le mot de passe doit contenir plus de 8 caractères.");
 		document.frmadmin.password.focus();
 		return false;
 	}
 	else if(document.frmadmin.password.value != document.frmadmin.cnfirmpassword.value )
 	{
-		alert("Password and confirm password should be equal..");
+		alert("Le mot de passe et la confirmation doivent être identiques.");
 		document.frmadmin.password.focus();
 		return false;
 	}
 	else if(document.frmadmin.select.value == "" )
 	{
-		alert("Kindly select the status..");
+		alert("Veuillez sélectionner le statut.");
 		document.frmadmin.select.focus();
 		return false;
 	}

@@ -7,22 +7,22 @@ if(isset($_GET['delid']))
 	$qsql=mysqli_query($con,$sql);
 	if(mysqli_affected_rows($con) == 1)
 	{
-		echo "<script>alert('appointment record deleted successfully..');</script>";
+		echo "<script>alert('Enregistrement du rendez-vous supprimé avec succès.');</script>";
 	}
 }
 if(isset($_GET['approveid']))
 {
-	$sql ="UPDATE appointment SET status='Approved' WHERE appointmentid='$_GET[approveid]'";
+	$sql ="UPDATE appointment SET status='Approuvé' WHERE appointmentid='$_GET[approveid]'";
 	$qsql=mysqli_query($con,$sql);
 	if(mysqli_affected_rows($con) == 1)
 	{
-		echo "<script>alert('Appointment record Approved successfully..');</script>";
+		echo "<script>alert('Enregistrement du rendez-vous approuvé avec succès.');</script>";
 	}
 }
 ?>
 <div class="container-fluid">
 <div class="block-header">
-        <h2 class="text-center">View Appointments - Approved</h2>
+        <h2 class="text-center">Voir les rendez-vous - Approuvés</h2>
     </div>
 
 <div class="card">
@@ -32,18 +32,18 @@ if(isset($_GET['approveid']))
 			<thead>
 				<tr>
 
-					<td>Patient Detail</td>
-					<td>Date & Time</td>
-					<td>Department</td>
-					<td>Doctor</td>
-					<td>Appointment Reason</td>
-					<td>Status</td>
+					<td>Détail du patient</td>
+					<td>Date & Heure</td>
+					<td>Département</td>
+					<td>Médecin</td>
+					<td>Motif du rendez-vous</td>
+					<td>Statut</td>
 					<td><div align="center">Action</div></td>
 				</tr>
 			</thead>
 			<tbody>
 				<?php
-				$sql ="SELECT * FROM appointment WHERE (status='Approved' OR status='Active')";
+				$sql ="SELECT * FROM appointment WHERE (status='Approuvé' OR status='Actif')";
 				if(isset($_SESSION['patientid']))
 				{
 					$sql  = $sql . " AND patientid='$_SESSION[patientid]'";
@@ -76,17 +76,17 @@ if(isset($_GET['approveid']))
 					<td>&nbsp;$rs[app_reason]</td>
 					<td>&nbsp;$rs[status]</td>
 					<td><div align='center'>";
-					if($rs['status'] != "Approved")
+					if($rs['status'] != "Approuvé")
 					{
 						if(!(isset($_SESSION['patientid'])))
 						{
-							echo "<a href='appointmentapproval.php?editid=$rs[appointmentid]' class='btn btn-raised g-bg-cyan>Approve</a><hr>";
+							echo "<a href='appointmentapproval.php?editid=$rs[appointmentid]' class='btn btn-raised g-bg-cyan'>Approuver</a><hr>";
 						}
-						echo "  <a href='viewappointment.php?delid=$rs[appointmentid]' class='btn btn-raised g-bg-blush2'>Delete</a>";
+						echo "  <a href='viewappointment.php?delid=$rs[appointmentid]' class='btn btn-raised g-bg-blush2'>Supprimer</a>";
 					}
 					else
 					{
-						echo "<a href='patientreport.php?patientid=$rs[patientid]&appointmentid=$rs[appointmentid]' class='btn btn-raised bg-cyan'>View Report</a>";
+						echo "<a href='patientreport.php?patientid=$rs[patientid]&appointmentid=$rs[appointmentid]' class='btn btn-raised bg-cyan'>Voir le rapport</a>";
 					}
 					echo "</center></td></tr>";
 				}

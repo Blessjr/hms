@@ -8,7 +8,7 @@ if(isset($_POST['submit']))
 		$sql ="UPDATE doctor SET doctorname='$_POST[doctorname]',mobileno='$_POST[mobilenumber]',departmentid='$_POST[select3]',loginid='$_POST[loginid]',education='$_POST[education]',experience='$_POST[experience]',consultancy_charge='$_POST[consultancy_charge]' WHERE doctorid='$_SESSION[doctorid]'";
 		if($qsql = mysqli_query($con,$sql))
 		{
-			echo "<script>alert('Doctor profile updated successfully...');</script>";
+			echo "<script>alert('Profil du médecin mis à jour avec succès...');</script>";
 		}
 		else
 		{
@@ -20,7 +20,7 @@ if(isset($_POST['submit']))
 		$sql ="INSERT INTO doctor(doctorname,mobileno,departmentid,loginid,password,status,education,experience) values('$_POST[doctorname]','$_POST[mobilenumber]','$_POST[select3]','$_POST[loginid]','$_POST[password]','$_POST[select]','$_POST[education]','$_POST[experience]')";
 		if($qsql = mysqli_query($con,$sql))
 		{
-			echo "<script>alert('Doctor record inserted successfully...');</script>";
+			echo "<script>alert('Enregistrement du médecin inséré avec succès...');</script>";
 		}
 		else
 		{
@@ -38,7 +38,7 @@ if(isset($_SESSION['doctorid']))
 ?>
 <div class="container-fluid">
     <div class="block-header">
-        <h2 class="text-center"> Doctor's Profile</h2>
+        <h2 class="text-center">Profil du Médecin</h2>
     </div>
     <div class="row clearfix">
         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
@@ -48,7 +48,7 @@ if(isset($_SESSION['doctorid']))
                     <div class="row">
                         <div class="col-sm-4 col-xs-12">
                             <div class="form-group">
-                                <label>Doctor Name</label>
+                                <label>Nom du médecin</label>
                                 <div class="form-line">
                                     <input class="form-control" type="text" name="doctorname" id="doctorname"
                                         value="<?php echo $rsedit['doctorname']; ?>" />
@@ -57,7 +57,7 @@ if(isset($_SESSION['doctorid']))
                         </div>
                         <div class="col-sm-4 col-xs-12">
                             <div class="form-group">
-                                <label>Mobile Number</label>
+                                <label>Numéro de portable</label>
                                 <div class="form-line">
                                     <input class="form-control" type="text" name="mobilenumber" id="mobilenumber"
                                         value="<?php echo $rsedit['mobileno']; ?>" />
@@ -66,10 +66,10 @@ if(isset($_SESSION['doctorid']))
                         </div>
                         <div class="col-sm-4 col-xs-12">
                             <div class="form-group">
-                                <label>Department</label>
+                                <label>Département</label>
                                 <div class="form-line">
                                     <select name="select3" id="select3" class="form-control show-tick">
-                                        <option value="">Select</option>
+                                        <option value="">Sélectionner</option>
                                         <?php
 													$sqldepartment= "SELECT * FROM department WHERE status='Active'";
 													$qsqldepartment = mysqli_query($con,$sqldepartment);
@@ -94,7 +94,7 @@ if(isset($_SESSION['doctorid']))
                     <div class="row">
                         <div class="col-sm-4 col-xs-12">
                             <div class="form-group">
-                                <label>Login ID</label>
+                                <label>ID de connexion</label>
                                 <div class="form-line">
                                     <input class="form-control" type="text" name="loginid" id="loginid"
                                         value="<?php echo $rsedit['loginid']; ?>" />
@@ -103,7 +103,7 @@ if(isset($_SESSION['doctorid']))
                         </div>
                         <div class="col-sm-4 col-xs-12">
                             <div class="form-group">
-                                <label>Education</label>
+                                <label>Formation</label>
                                 <div class="form-line">
                                     <input class="form-control" type="text" name="education" id="education"
                                         value="<?php echo $rsedit['education']; ?>" />
@@ -112,7 +112,7 @@ if(isset($_SESSION['doctorid']))
                         </div>
                         <div class="col-sm-4 col-xs-12">
                             <div class="form-group">
-                                <label>Experience</label>
+                                <label>Expérience</label>
                                 <div class="form-line">
                                     <input class="form-control" type="text" name="experience" id="experience"
                                         value="<?php echo $rsedit['experience']; ?>" />
@@ -121,7 +121,7 @@ if(isset($_SESSION['doctorid']))
                         </div>
                         <div class="col-sm-4 col-xs-12">
                             <div class="form-group">
-                                <label>Consultancy charge</label>
+                                <label>Frais de consultation</label>
                                 <div class="form-line">
 
                                     <input class="form-control" type="text" name="consultancy_charge"
@@ -129,7 +129,7 @@ if(isset($_SESSION['doctorid']))
                                 </div>
                             </div>
 
-                            <input class="btn btn-raised" type="submit" name="submit" id="submit" value="Submit" />
+                            <input class="btn btn-raised" type="submit" name="submit" id="submit" value="Envoyer" />
                         </div>
                     </div>
 
@@ -153,63 +153,63 @@ var emailExp = /^[\w\-\.\+]+\@[a-zA-Z0-9\.\-]+\.[a-zA-z0-9]{2,4}$/; //Variable t
 
 function validateform() {
     if (document.frmdoctprfl.doctorname.value == "") {
-        alert("Doctor name should not be empty..");
+        alert("Le nom du médecin ne doit pas être vide.");
         document.frmdoctprfl.doctorname.focus();
         return false;
     } else if (!document.frmdoctprfl.doctorname.value.match(alphaspaceExp)) {
-        alert("Doctor name not valid..");
+        alert("Nom du médecin non valide.");
         document.frmdoctprfl.doctorname.focus();
         return false;
     } else if (document.frmdoctprfl.mobilenumber.value == "") {
-        alert("Mobile number should not be empty..");
+        alert("Le numéro de portable ne doit pas être vide.");
         document.frmdoctprfl.mobilenumber.focus();
         return false;
     } else if (!document.frmdoctprfl.mobilenumber.value.match(numericExpression)) {
-        alert("Mobile number not valid..");
+        alert("Numéro de portable non valide.");
         document.frmdoctprfl.mobilenumber.focus();
         return false;
     } else if (document.frmdoctprfl.select3.value == "") {
-        alert("Department ID should not be empty..");
+        alert("L'identifiant du département ne doit pas être vide.");
         document.frmdoctprfl.select3.focus();
         return false;
     } else if (document.frmdoctprfl.loginid.value == "") {
-        alert("Login ID should not be empty..");
+        alert("L'identifiant de connexion ne doit pas être vide.");
         document.frmdoctprfl.loginid.focus();
         return false;
     } else if (!document.frmdoctprfl.loginid.value.match(alphanumericExp)) {
-        alert("loginid not valid..");
+        alert("Identifiant de connexion non valide.");
         document.frmdoctprfl.loginid.focus();
         return false;
     } else if (document.frmdoctprfl.password.value == "") {
-        alert("Password should not be empty..");
+        alert("Le mot de passe ne doit pas être vide.");
         document.frmdoctprfl.password.focus();
         return false;
     } else if (document.frmdoctprfl.password.value.length < 8) {
-        alert("Password length should be more than 8 characters...");
+        alert("Le mot de passe doit contenir plus de 8 caractères.");
         document.frmdoctprfl.password.focus();
         return false;
     } else if (document.frmdoctprfl.password.value != document.frmdoctprfl.cnfirmpassword.value) {
-        alert("Password and confirm password should be equal..");
+        alert("Le mot de passe et la confirmation doivent être identiques.");
         document.frmdoctprfl.password.focus();
         return false;
     } else if (document.frmdoctprfl.education.value == "") {
-        alert("Education should not be empty..");
+        alert("La formation ne doit pas être vide.");
         document.frmdoctprfl.education.focus();
         return false;
     } else if (!document.frmdoctprfl.education.value.match(alphaExp)) {
-        alert("Education not valid..");
+        alert("Formation non valide.");
         document.frmdoctprfl.education.focus();
         return false;
     } else if (document.frmdoctprfl.experience.value == "") {
-        alert("Experience should not be empty..");
+        alert("L'expérience ne doit pas être vide.");
         document.frmdoctprfl.experience.focus();
         return false;
     } else if (!document.frmdoctprfl.experience.value.match(numericExpression)) {
-        alert("Experience not valid..");
+        alert("Expérience non valide.");
         document.frmdoctprfl.experience.focus();
         return false;
     } else if (document.frmdoctprfl.select.value == "") {
-        alert("Kindly select the status..");
+        alert("Veuillez sélectionner le statut.");
         document.frmdoctprfl.select.focus();
         return false;
     } else {

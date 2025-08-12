@@ -8,14 +8,13 @@ if(isset($_GET['delid']))
 	$qsql=mysqli_query($con,$sql);
 	if(mysqli_affected_rows($con) == 1)
 	{
-		echo "<script>alert('appointment record deleted successfully..');</script>";
+		echo "<script>alert('Enregistrement du rendez-vous supprimé avec succès.');</script>";
 	}
 }
 ?>
 <div class="container-fluid">
 	<div class="block-header">
-		<h2 class="text-center">View Doctor consultancy charges</h2>
-
+		<h2 class="text-center">Voir les frais de consultation du médecin</h2>
 	</div>
 
 <div class="card">
@@ -25,8 +24,8 @@ if(isset($_GET['delid']))
 			<thead>
 				<tr>
 					<th width="97" scope="col">Date</th>
-					<th width="245" scope="col">Decription</th>
-					<th width="86" scope="col">Bill Amount</th>
+					<th width="245" scope="col">Description</th>
+					<th width="86" scope="col">Montant de la facture</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -40,20 +39,18 @@ if(isset($_GET['delid']))
 					<td>$rs[bill_date]</td>
 					<td> $rs[bill_type]";
 
-
-
 					if($rs['bill_type'] == "Consultancy Charge")
 					{
-	//Consultancy Charge
+						// Frais de consultation
 						$sqldoctor = "SELECT * FROM doctor WHERE doctorid='$rs[bill_type_id]'";
 						$qsqldoctor = mysqli_query($con,$sqldoctor);
 						$rsdoctor = mysqli_fetch_array($qsqldoctor);
-						echo " - Mr.".$rsdoctor['doctorname'];
+						echo " - M. ".$rsdoctor['doctorname'];
 					}
 
 					if($rs['bill_type'] =="Treatment Cost")
 					{	
-	//Treatment Cost
+						// Coût du traitement
 						$sqltreatment = "SELECT * FROM treatment WHERE treatmentid='$rs[bill_type_id]'";
 						$qsqltreatment = mysqli_query($con,$sqltreatment);
 						$rstreatment = mysqli_fetch_array($qsqltreatment);
@@ -80,23 +77,18 @@ if(isset($_GET['delid']))
 					$billamt = $billamt +  $rs['bill_amount'];
 				}
 				?>
-				
-
 			</tbody>
 			<tfoot>
 				<tr>
 					<td></td>
-					<td>Total Earnings :</td>
+					<td>Total des gains :</td>
 					<td>₹ <?php echo ($billamt + $taxamt)  - $rsbilling_records['discount'] ; ?></td>
 				</tr>
 			</tfoot>
 		</table>
-
-		
 	</section>
 </div>
 </div>
-
 
 <?php
 include("adformfooter.php");

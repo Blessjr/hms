@@ -1,195 +1,263 @@
 <?php
 include("header.php");
 include("dbconnection.php");
+
 if(isset($_GET['delid']))
 {
-	 $sql ="DELETE FROM prescription_records WHERE prescription_record_id='$_GET[delid]'";
-	$qsql=mysqli_query($con,$sql);
-	if(mysqli_affected_rows($con) == 1)
-	{
-		echo "<script>alert('prescription deleted successfully..');</script>";
-	}
+    $delid = intval($_GET['delid']); // sanitize
+    $sql = "DELETE FROM prescription_records WHERE prescription_record_id='$delid'";
+    $qsql = mysqli_query($con, $sql);
+    if(mysqli_affected_rows($con) == 1)
+    {
+        echo "<script>alert('Ordonnance supprimée avec succès.');</script>";
+    }
 }
+
 if(isset($_POST['submit']))
 {
-	if(isset($_GET['editid']))
-	{
-			$sql ="UPDATE prescription_records SET prescription_id='$_POST[prescriptionid]',medicine_name='$_POST[medicine]',cost='$_POST[cost]',unit='$_POST[unit]',dosage='$_POST[select2]',status=' $_POST[select]' WHERE prescription_record_id='$_GET[editid]'";
-		if($qsql = mysqli_query($con,$sql))
-		{
-			echo "<script>alert('prescription record updated successfully...');</script>";
-		}
-		else
-		{
-			echo mysqli_error($con);
-		}	
-	}
-	else
-	{
-		$sql ="INSERT INTO prescription_records(prescription_id,medicine_name,cost,unit,dosage,status) values('$_POST[prescriptionid]','$_POST[medicine]','$_POST[cost]','$_POST[unit]','$_POST[select2]','$_POST[select]')";
-		if($qsql = mysqli_query($con,$sql))
-		{	
-			$billtype = "Prescription update";
-			$prescriptionid= $_POST['prescriptionid'];
-			echo "<script>alert('prescription record inserted successfully...');</script>";
-		}
-		else
-		{
-			echo mysqli_error($con);
-		}
-	}
+    $prescriptionid = mysqli_real_escape_string($con, $_POST['prescriptionid']);
+    $medicine = mysqli_real_escape_string($con, $_POST['medicine']);
+    $cost = floatval($_POST['cost']);
+    $unit = intval($_POST['unit']);
+    $dosage = mysqli_real_escape_string($con, $_POST['select2']);
+    $status = isset($_POST['select']) ? mysqli_real_escape_string($con, $_POST['select']) : 'Active';
+
+    if(isset($_GET['editid']))
+    {
+        $editid = intval($_GET['editid']);
+        $sql = "UPDATE prescription_records SET 
+                    prescription_id='$prescriptionid',
+                    medicine_name='$medicine',
+                    cost='$cost',
+                    unit='$unit',
+                    dosage='$dosage',
+                    status='$status'
+                WHERE prescription_record_id='$editid'";
+        if($qsql = mysqli_query($con, $sql))
+        {
+            echo "<script>alert('Enregistrement d\'ordonnance mis à jour avec succès.');</script>";
+        }
+        else
+        {
+            echo mysqli_error($con);
+        }
+    }
+    else
+    {
+        $sql = "INSERT INTO prescription_records(prescription_id, medicine_name, cost, unit, dosage, status) 
+                VALUES('$prescriptionid', '$medicine', '$cost', '$unit', '$dosage', '$status')";
+        if($qsql = mysqli_query($con, $sql))
+        {
+            echo "<script>alert('Enregistrement d\'ordonnance inséré avec succès.');</script>";
+        }
+        else
+        {
+            echo mysqli_error($con);
+        }
+    }
 }
+
+$rsedit = null;
 if(isset($_GET['editid']))
 {
-	$sql="SELECT * FROM prescription_records WHERE prescription_record_id='$_GET[editid]' ";
-	$qsql = mysqli_query($con,$sql);
-	$rsedit = mysqli_fetch_array($qsql);
-	
+    $editid = intval($_GET['editid']);
+    $sql = "SELECT * FROM prescription_records WHERE prescription_record_id='$editid'";
+    $qsql = mysqli_query($con, $sql);
+    $rsedit = mysqli_fetch_array($qsql);
 }
 ?>
 
 <div class="wrapper col2">
   <div id="breadcrumb">
     <ul>
-      <li class="first">Add New Prescription Record</li></ul>
+      <li class="first">Ajouter un nouvel enregistrement d'ordonnance</li>
+    </ul>
   </div>
 </div>
 <div class="wrapper col4">
   <div id="container">
- <table width="200" border="3">
+
+    <table width="100%" border="3">
       <tbody>
         <tr>
-          <td><strong>Doctor</strong></td>
+          <td><strong>Médecin</strong></td>
           <td><strong>Patient</strong></td>
-          <td><strong>Prescription Date</strong></td>
-          <td><strong>Status</strong></td>
+          <td><strong>Date de l'ordonnance</strong></td>
+          <td><strong>Statut</strong></td>
         </tr>
-          <?php
-		$sql ="SELECT * FROM prescription WHERE prescriptionid='$_GET[prescriptionid]'";
-		$qsql = mysqli_query($con,$sql);
-		while($rs = mysqli_fetch_array($qsql))
-		{
-			$sqlpatient = "SELECT * FROM patient WHERE patientid='$rs[patientid]'";
-			$qsqlpatient = mysqli_query($con,$sqlpatient);
-			$rspatient = mysqli_fetch_array($qsqlpatient);
-			
-			
-		$sqldoctor = "SELECT * FROM doctor WHERE doctorid='$rs[doctorid]'";
-			$qsqldoctor = mysqli_query($con,$sqldoctor);
-			$rsdoctor = mysqli_fetch_array($qsqldoctor);
-			
-        echo "<tr>
-          <td>&nbsp;$rsdoctor[doctorname]</td>
-          <td>&nbsp;$rspatient[patientname]</td>
-		   <td>&nbsp;$rs[prescriptiondate]</td>
-		<td>&nbsp;$rs[status]</td>
-		
-        </tr>";
-		}
-		?>
+        <?php
+        if(isset($_GET['prescriptionid']))
+        {
+            $prescriptionid = intval($_GET['prescriptionid']);
+            $sql = "SELECT * FROM prescription WHERE prescriptionid='$prescriptionid'";
+            $qsql = mysqli_query($con, $sql);
+            while($rs = mysqli_fetch_array($qsql))
+            {
+                $sqlpatient = "SELECT patientname FROM patient WHERE patientid='" . intval($rs['patientid']) . "'";
+                $qsqlpatient = mysqli_query($con, $sqlpatient);
+                $rspatient = mysqli_fetch_array($qsqlpatient);
+
+                $sqldoctor = "SELECT doctorname FROM doctor WHERE doctorid='" . intval($rs['doctorid']) . "'";
+                $qsqldoctor = mysqli_query($con, $sqldoctor);
+                $rsdoctor = mysqli_fetch_array($qsqldoctor);
+
+                echo "<tr>
+                        <td>&nbsp;" . htmlspecialchars($rsdoctor['doctorname']) . "</td>
+                        <td>&nbsp;" . htmlspecialchars($rspatient['patientname']) . "</td>
+                        <td>&nbsp;" . htmlspecialchars($rs['prescriptiondate']) . "</td>
+                        <td>&nbsp;" . htmlspecialchars($rs['status']) . "</td>
+                    </tr>";
+            }
+        }
+        ?>
       </tbody>
     </table>
-    
-  <h1>View Prescription record</h1>
-    <table width="200" border="3">
+
+    <h1>Voir l'enregistrement de l'ordonnance</h1>
+    <table width="100%" border="3">
       <tbody>
         <tr>
-          <td><strong>Medicine</strong></td>
-          <td><strong>Cost</strong></td>
-          <td><strong>Unit</strong></td>
-          <td><strong>Dosage</strong></td>
-                    <?php
-			if(!isset($_SESSION['patientid']))
-			{
-		  ?>  
+          <td><strong>Médicament</strong></td>
+          <td><strong>Coût</strong></td>
+          <td><strong>Unité</strong></td>
+          <td><strong>Posologie</strong></td>
+          <?php if(!isset($_SESSION['patientid'])) { ?>
           <td><strong>Action</strong></td>
-          <?php
-			}
-			?>
+          <?php } ?>
         </tr>
-         <?php
-		$sql ="SELECT * FROM prescription_records WHERE prescription_id='$_GET[prescriptionid]'";
-		$qsql = mysqli_query($con,$sql);
-		while($rs = mysqli_fetch_array($qsql))
-		{
-        echo "<tr>
-          <td>&nbsp;$rs[medicine_name]</td>
-          <td>&nbsp;Rs. $rs[cost]</td>
-		   <td>&nbsp;$rs[unit]</td>
-		    <td>&nbsp;$rs[dosage]</td>";
-			if(!isset($_SESSION['patientid']))
-			{
-			 echo " <td>&nbsp; <a href='prescriptionrecord.php?delid=$rs[prescription_record_id]&prescriptionid=$_GET[prescriptionid]'>Delete</a> </td>"; 
-			}
-		echo "</tr>";
-		}
-		?>
+        <?php
+        if(isset($_GET['prescriptionid']))
+        {
+            $prescriptionid = intval($_GET['prescriptionid']);
+            $sql = "SELECT * FROM prescription_records WHERE prescription_id='$prescriptionid'";
+            $qsql = mysqli_query($con, $sql);
+            while($rs = mysqli_fetch_array($qsql))
+            {
+                echo "<tr>
+                        <td>" . htmlspecialchars($rs['medicine_name']) . "</td>
+                        <td>Rs. " . htmlspecialchars($rs['cost']) . "</td>
+                        <td>" . htmlspecialchars($rs['unit']) . "</td>
+                        <td>" . htmlspecialchars($rs['dosage']) . "</td>";
+                if(!isset($_SESSION['patientid']))
+                {
+                    echo "<td><a href='prescriptionrecord.php?delid=" . intval($rs['prescription_record_id']) . "&prescriptionid=$prescriptionid' onclick=\"return confirm('Êtes-vous sûr de vouloir supprimer cet enregistrement ?');\">Supprimer</a></td>";
+                }
+                echo "</tr>";
+            }
+        }
+        ?>
         <tr>
-          <td colspan="6"><div align="center">
-            <input type="submit" name="print" id="print" value="Print" onclick="myFunction()"/>
-          </div></td>
-          </tr>
+          <td colspan="5">
+            <div align="center">
+              <input type="button" name="print" id="print" value="Imprimer" onclick="window.print();" />
+            </div>
+          </td>
+        </tr>
       </tbody>
     </table>
-<script>
-function myFunction() {
-    window.print();
-}
-</script>
+
+    <?php if(!isset($_SESSION['patientid'])) { ?>
+    <form method="post" action="" name="frmpresrecord" onsubmit="return validateform();"> 
+      <input type="hidden" name="prescriptionid" value="<?php echo isset($_GET['prescriptionid']) ? intval($_GET['prescriptionid']) : ''; ?>" />
+      <table width="100%" border="3">
+        <tbody>
+          <tr>
+            <td width="34%">Médicament</td>
+            <td width="66%"><input type="text" name="medicine" id="medicine" value="<?php echo isset($rsedit['medicine_name']) ? htmlspecialchars($rsedit['medicine_name']) : ''; ?>" /></td>
+          </tr>
+          <tr>
+            <td>Coût</td>
+            <td><input type="text" name="cost" id="cost" value="<?php echo isset($rsedit['cost']) ? htmlspecialchars($rsedit['cost']) : ''; ?>" /></td>
+          </tr>
+          <tr>
+            <td>Unité</td>
+            <td><input type="number" min="1" name="unit" id="unit" value="<?php echo isset($rsedit['unit']) ? intval($rsedit['unit']) : '1'; ?>" /></td>
+          </tr>
+          <tr>
+            <td>Posologie</td>
+            <td>
+              <select name="select2" id="select2">
+                <option value="">Sélectionnez</option>
+                <?php
+                $arr = array("1-0-1","1-1-1","1-1-0","0-1-1","0-1-0","0-0-1","1-0-0");
+                foreach($arr as $val)
+                {
+                    $selected = (isset($rsedit['dosage']) && $rsedit['dosage'] == $val) ? "selected" : "";
+                    echo "<option value='$val' $selected>$val</option>";
+                }
+                ?>
+              </select>
+            </td>
+          </tr>
+          <tr>
+            <td>Statut</td>
+            <td>
+              <select name="select" id="select">
+                <option value="">Sélectionnez</option>
+                <option value="Active" <?php if(isset($rsedit['status']) && $rsedit['status'] == 'Active') echo 'selected'; ?>>Actif</option>
+                <option value="Inactive" <?php if(isset($rsedit['status']) && $rsedit['status'] == 'Inactive') echo 'selected'; ?>>Inactif</option>
+              </select>
+            </td>
+          </tr>
+          <tr>
+            <td colspan="2" align="center">
+              <input type="submit" name="submit" id="submit" value="Soumettre" />
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </form>
+    <?php } ?>
 
     <p>&nbsp;</p>
   </div>
 </div>
-</div>
- <div class="clear"></div>
-  </div>
-</div>
-<?php
-include("footer.php");
-?>
+
+<?php include("footer.php"); ?>
+
 <script type="application/javascript">
 function validateform()
 {
-	if(document.frmpresrecord.prescriptionid.value == "")
-	{
-		alert("Prescription id should not be empty..");
-		document.frmpresrecord.prescriptionid.focus();
-		return false;
-	}
-	else if(document.frmpresrecord.medicine.value == "")
-	{
-		alert("Medicine field should not be empty..");
-		document.frmpresrecord.medicine.focus();
-		return false;
-	}
-	else if(document.frmpresrecord.cost.value == "")
-	{
-		alert("Cost should not be empty..");
-		document.frmpresrecord.cost.focus();
-		return false;
-	}
-	else if(document.frmpresrecord.unit.value == "")
-	{
-		alert("Unit should not be empty..");
-		document.frmpresrecord.unit.focus();
-		return false;
-	}
-	else if(document.frmpresrecord.select2.value == "")
-	{
-		alert("Dosage should not be empty..");
-		document.frmpresrecord.select2.focus();
-		return false;
-	}
-	else if(document.frmpresrecord.select.value == "" )
-	{
-		alert("Kindly select the status..");
-		document.frmpresrecord.select.focus();
-		return false;
-	}
-	else
-	{
-		return true;
-	}
-	
+    var form = document.frmpresrecord;
+    if(form.prescriptionid.value == "")
+    {
+        alert("L'identifiant de l'ordonnance ne doit pas être vide.");
+        form.prescriptionid.focus();
+        return false;
+    }
+    else if(form.medicine.value.trim() == "")
+    {
+        alert("Le champ Médicament ne doit pas être vide.");
+        form.medicine.focus();
+        return false;
+    }
+    else if(form.cost.value.trim() == "" || isNaN(form.cost.value) || Number(form.cost.value) < 0)
+    {
+        alert("Le coût doit être un nombre valide et ne doit pas être vide.");
+        form.cost.focus();
+        return false;
+    }
+    else if(form.unit.value.trim() == "" || isNaN(form.unit.value) || Number(form.unit.value) < 1)
+    {
+        alert("L'unité doit être un nombre positif.");
+        form.unit.focus();
+        return false;
+    }
+    else if(form.select2.value == "")
+    {
+        alert("La posologie ne doit pas être vide.");
+        form.select2.focus();
+        return false;
+    }
+    else if(form.select.value == "" )
+    {
+        alert("Veuillez sélectionner le statut.");
+        form.select.focus();
+        return false;
+    }
+    else
+    {
+        return true;
+    }
 }
 </script>

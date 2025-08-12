@@ -9,10 +9,9 @@ if(isset($_GET['delid']))
 	{
 		echo "<script>
     Swal.fire({
-      title: 'Done!',
-      text: 'department deleted successfully',
-      type: 'success',
-      
+      title: 'Fait !',
+      text: 'Département supprimé avec succès',
+      icon: 'success',
     })</script>";
   }
 }
@@ -21,18 +20,16 @@ if(isset($_GET['delid']))
 
 <div class="container-fluid">
   <div class="block-header">
-    <h2 class="text-center">View Department Record</h2>
-    
+    <h2 class="text-center">Voir le dossier du département</h2>
   </div>
   <div class="card">
-    
     <section class="container">
      <table class="table table-bordered table-striped table-hover js-exportable dataTable">
      <thead>
 				<tr>
-          <td><strong>Name</strong></td>
-          <td><strong>Department Description</strong></td>          
-          <td><strong>Status</strong></td>
+          <td><strong>Nom</strong></td>
+          <td><strong>Description du département</strong></td>          
+          <td><strong>Statut</strong></td>
           <?php
           if(isset($_SESSION['adminid']))
           {
@@ -52,13 +49,12 @@ if(isset($_GET['delid']))
           echo "<tr>
           <td>$rs[departmentname]</td>
           <td> $rs[description]</td>
-          
           <td>&nbsp;$rs[status]</td>";
           if(isset($_SESSION['adminid']))
           {
             echo "<td>&nbsp;
-            <a href='department.php?editid=$rs[departmentid]' class='btn btn-raised bg-green'>Edit</a> 
-             <a href='viewdepartment.php?delid=$rs[departmentid]' class='btn btn-raised bg-blush '>Delete</a> </td>";
+            <a href='department.php?editid=$rs[departmentid]' class='btn btn-raised bg-green'>Modifier</a> 
+             <a href='viewdepartment.php?delid=$rs[departmentid]' class='btn btn-raised bg-blush '>Supprimer</a> </td>";
           }
           echo "</tr>";
         }
@@ -66,7 +62,6 @@ if(isset($_GET['delid']))
       </tbody>
     </table>
   </section>
-  
 </div>
 </div>
 

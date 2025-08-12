@@ -7,14 +7,13 @@ if(isset($_GET['delid']))
 	$qsql=mysqli_query($con,$sql);
 	if(mysqli_affected_rows($con) == 1)
 	{
-		echo "<script>alert('doctor record deleted successfully..');</script>";
+		echo "<script>alert('Enregistrement du docteur supprimé avec succès.');</script>";
 	}
 }
 ?>
 <div class="container-fluid">
 	<div class="block-header">
-		<h2 class="text-center">View Available Doctor</h2>
-
+		<h2 class="text-center">Voir les médecins disponibles</h2>
 	</div>
 
 <div class="card">
@@ -23,14 +22,14 @@ if(isset($_GET['delid']))
 		<table class="table table-bordered table-striped table-hover js-basic-example dataTable">
 			<thead>
 				<tr>
-					<td>Name</td>
+					<td>Nom</td>
 					<td>Contact</td>
-					<td>Department</td>
-					<td>LoginID</td>
-					<td>Consultancy Charge</td>
-					<td>Education</td>
-					<td>Experience</td>
-					<td>Status</td>
+					<td>Département</td>
+					<td>ID de connexion</td>
+					<td>Frais de consultation</td>
+					<td>Formation</td>
+					<td>Expérience</td>
+					<td>Statut</td>
 					<td>Action</td>
 				</tr>
 			</thead>
@@ -52,17 +51,18 @@ if(isset($_GET['delid']))
 					<td>&nbsp;$rs[loginid]</td>
 					<td>&nbsp;$rs[consultancy_charge]</td>
 					<td>&nbsp;$rs[education]</td>
-					<td>&nbsp;$rs[experience] year</td>
+					<td>&nbsp;$rs[experience] ans</td>
 					<td>$rs[status]</td>
 					<td>&nbsp;
-					<a href='doctor.php?editid=$rs[doctorid]' class='btn btn-sm btn-raised g-bg-cyan'>Edit</a> <a href='viewdoctor.php?delid=$rs[doctorid]' class='btn btn-sm btn-raised g-bg-blush2'>Delete</a> </td>
+					<a href='doctor.php?editid=$rs[doctorid]' class='btn btn-sm btn-raised g-bg-cyan'>Modifier</a> <a href='viewdoctor.php?delid=$rs[doctorid]' class='btn btn-sm btn-raised g-bg-blush2'>Supprimer</a> </td>
 					</tr>";
 				}
-				?>      </tbody>
-			</table>
-		</section>
-	</div>
+				?>      
+			</tbody>
+		</table>
+	</section>
 </div>
-	<?php
-	include("adformfooter.php");
-	?>
+</div>
+<?php
+include("adformfooter.php");
+?>

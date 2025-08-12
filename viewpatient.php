@@ -7,14 +7,13 @@ if(isset($_GET['delid']))
 	$qsql=mysqli_query($con,$sql);
 	if(mysqli_affected_rows($con) == 1)
 	{
-		echo "<script>alert('patient record deleted successfully..');</script>";
+		echo "<script>alert('Enregistrement du patient supprimé avec succès.');</script>";
 	}
 }
 ?>
 <div class="container-fluid">
   <div class="block-header">
-    <h2 class="text-center">View Patient Records</h2>
-
+    <h2 class="text-center">Voir les dossiers des patients</h2>
   </div>
 
 <div class="card">
@@ -24,10 +23,10 @@ if(isset($_GET['delid']))
 
       <thead>
         <tr>
-          <th width="15%" height="36"><div align="center">Name</div></th>
+          <th width="15%" height="36"><div align="center">Nom</div></th>
           <th width="20%"><div align="center">Admission</div></th>
-          <th width="28%"><div align="center">Address, Contact</div></th>    
-          <th width="20%"><div align="center">Patient Profile</div></th>
+          <th width="28%"><div align="center">Adresse, Contact</div></th>    
+          <th width="20%"><div align="center">Profil du patient</div></th>
           <th width="17%"><div align="center">Action</div></th>
         </tr>
       </thead>
@@ -40,20 +39,21 @@ if(isset($_GET['delid']))
        {
         echo "<tr>
         <td>$rs[patientname]<br>
-        <strong>Login ID :</strong> $rs[loginid] </td>
+        <strong>ID de connexion :</strong> $rs[loginid] </td>
         <td>
         <strong>Date</strong>: &nbsp;$rs[admissiondate]<br>
-        <strong>Time</strong>: &nbsp;$rs[admissiontime]</td>
+        <strong>Heure</strong>: &nbsp;$rs[admissiontime]</td>
         <td>$rs[address]<br>$rs[city] -  &nbsp;$rs[pincode]<br>
-        Mob No. - $rs[mobileno]</td>
-        <td><strong>Blood group</strong> - $rs[bloodgroup]<br>
-        <strong>Gender</strong> - &nbsp;$rs[gender]<br>
-        <strong>DOB</strong> - &nbsp;$rs[dob]</td>
-        <td align='center'>Status - $rs[status] <br>";
+        Tél. portable - $rs[mobileno]</td>
+        <td><strong>Groupe sanguin</strong> - $rs[bloodgroup]<br>
+        <strong>Sexe</strong> - &nbsp;$rs[gender]<br>
+        <strong>Date de naissance</strong> - &nbsp;$rs[dob]</td>
+        <td align='center'>Statut - $rs[status] <br>";
         if(isset($_SESSION['adminid']))
         {
-          echo "<a href='patient.php?editid=$rs[patientid]' class='btn btn-sm btn-raised bg-green'>Edit</a><a href='viewpatient.php?delid=$rs[patientid]' class='btn btn-sm btn-raised bg-blush'>Delete</a> <hr>
-          <a href='patientreport.php?patientid=$rs[patientid]&appointmentid=$rs[appointmentid]' class='btn btn-sm btn-raised bg-cyan'>View Report</a>";
+          echo "<a href='patient.php?editid=$rs[patientid]' class='btn btn-sm btn-raised bg-green'>Modifier</a>
+                <a href='viewpatient.php?delid=$rs[patientid]' class='btn btn-sm btn-raised bg-blush'>Supprimer</a> <hr>
+                <a href='patientreport.php?patientid=$rs[patientid]&appointmentid=$rs[appointmentid]' class='btn btn-sm btn-raised bg-cyan'>Voir le rapport</a>";
         }
         echo "</td></tr>";
       }

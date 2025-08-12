@@ -7,7 +7,7 @@ if(isset($_GET['delid']))
 	$qsql=mysqli_query($con,$sql);
 	if(mysqli_affected_rows($con) == 1)
 	{
-		echo "<script>alert('prescription record deleted successfully..');</script>";
+		echo "<script>alert('Enregistrement d'ordonnance supprimé avec succès.');</script>";
 	}
 }
 ?>
@@ -15,20 +15,21 @@ if(isset($_GET['delid']))
 <div class="wrapper col2">
   <div id="breadcrumb">
     <ul>
-      <li class="first">View Prescription Record</li></ul>
+      <li class="first">Voir l'enregistrement de l'ordonnance</li>
+    </ul>
   </div>
 </div>
 <div class="wrapper col4">
   <div id="container">
-    <h1>View Prescription record</h1>
+    <h1>Voir l'enregistrement de l'ordonnance</h1>
     <table width="200" border="3">
       <tbody>
         <tr>
-          <td>Medicine</td>
-          <td>Cost</td>
-          <td>Unit</td>
+          <td>Médicament</td>
+          <td>Coût</td>
+          <td>Unité</td>
           <td>Dosage</td>
-          <td>Status</td>
+          <td>Statut</td>
           <td>Action</td>
         </tr>
          <?php
@@ -42,7 +43,7 @@ if(isset($_GET['delid']))
 		   <td>&nbsp;$rs[unit]</td>
 		    <td>&nbsp;$rs[dosage]</td>
 			 <td>&nbsp;$rs[status]</td>
-			  <td>&nbsp;<a href='prescriptionrecord.php?editid=$rs[prescription_record_id]'>Edit</a>  | <a href='viewprescriptionrecord.php?delid=$rs[prescription_record_id]'>Delete</a> </td>
+			  <td>&nbsp;<a href='prescriptionrecord.php?editid=$rs[prescription_record_id]'>Modifier</a>  | <a href='viewprescriptionrecord.php?delid=$rs[prescription_record_id]'>Supprimer</a> </td>
         </tr>";
 		}
 		?>

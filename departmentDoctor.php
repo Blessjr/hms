@@ -8,7 +8,7 @@ echo "<select class='selectpicker' name='doct' id='doct'  >";
 while($qsql1=mysqli_fetch_array($qsql))
 {	
 	echo "<option value=''>Select doctor</option>";
-	echo "<option value='$qsql1[doctorid]'>$qsql1[doctorname]</option>";		
+	echo "<option value='$qsql1[doctorid]'>$qsql1[doctorname]</option>";
 }
 echo "</select>"
 ?>	          

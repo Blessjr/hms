@@ -1,6 +1,5 @@
 <?php include("adheader.php");
 
-
 include("dbconnection.php");
 if(isset($_GET['delid']))
 {
@@ -8,14 +7,14 @@ if(isset($_GET['delid']))
 	$qsql=mysqli_query($con,$sql);
 	if(mysqli_affected_rows($con) == 1)
 	{
-		echo "<script>alert('prescription deleted successfully..');</script>";
+		echo "<script>alert('Ordonnance supprimée avec succès..');</script>";
 	}
 }
 ?>
 
 <div class="container-fluid">
   <div class="block-header">
-    <h2 class="text-center">View Prescription Record</h2>
+    <h2 class="text-center">Voir le dossier de l'ordonnance</h2>
 
   </div>
 
@@ -40,10 +39,10 @@ if(isset($_GET['delid']))
 
         <thead>
            <tr>
-              <td width="71"	scope="col"><strong>Doctor</strong></td>
+              <td width="71"	scope="col"><strong>Médecin</strong></td>
               <td width="71"	scope="col"><strong>Patient</strong></td>
-              <td width="71"	scope="col"><strong>Prescription Date</strong></td>
-              <td width="71"	scope="col"><strong>Status</strong></td>
+              <td width="71"	scope="col"><strong>Date de l'ordonnance</strong></td>
+              <td width="71"	scope="col"><strong>Statut</strong></td>
             </tr>
         </thead>
         <tbody>
@@ -68,9 +67,9 @@ if(isset($_GET['delid']))
         <table class="table table-bordered table-striped table-hover js-basic-example dataTable ">
           <thead>
              <tr>
-              <td>Medicine</td>
-              <td>Cost</td>
-              <td>Unit</td>
+              <td>Médicament</td>
+              <td>Coût</td>
+              <td>Unité</td>
               <td>Dosage</td>
             </tr>
           </thead>
@@ -93,7 +92,7 @@ if(isset($_GET['delid']))
             
           </tbody>
         </table>
-        <input type="submit" class="btn btn-lg" name="print" id="print" value="Print" onclick="myFunction()"/>
+        <input type="submit" class="btn btn-lg" name="print" id="print" value="Imprimer" onclick="myFunction()"/>
       </div>    
       
       <?php

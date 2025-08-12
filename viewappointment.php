@@ -7,23 +7,22 @@ if(isset($_GET['delid']))
 	$qsql=mysqli_query($con,$sql);
 	if(mysqli_affected_rows($con) == 1)
 	{
-		echo "<script>alert('appointment record deleted successfully..');</script>";
+		echo "<script>alert('Enregistrement du rendez-vous supprimé avec succès.');</script>";
 	}
 }
 if(isset($_GET['approveid']))
 {
-	$sql ="UPDATE appointment SET status='Approved' WHERE appointmentid='$_GET[approveid]'";
+	$sql ="UPDATE appointment SET status='Approuvé' WHERE appointmentid='$_GET[approveid]'";
 	$qsql=mysqli_query($con,$sql);
 	if(mysqli_affected_rows($con) == 1)
 	{
-		echo "<script>alert('Appointment record Approved successfully..');</script>";
+		echo "<script>alert('Enregistrement du rendez-vous approuvé avec succès.');</script>";
 	}
 }
 ?>
 <div class="container-fluid">
   <div class="block-header">
-    <h2 class="text-center">View Appointment records</h2>
-
+    <h2 class="text-center">Voir les enregistrements de rendez-vous</h2>
   </div>
 
 <div class="card">
@@ -33,12 +32,12 @@ if(isset($_GET['approveid']))
 
       <thead>
         <tr>
-          <th>Patient Detail</th>
-          <th>Date & Time</th>
-          <th>Department</th>
-          <th>Doctor</th>
-          <th>Reason</th>
-          <th>Status</th>
+          <th>Détail du patient</th>
+          <th>Date & Heure</th>
+          <th>Département</th>
+          <th>Médecin</th>
+          <th>Motif</th>
+          <th>Statut</th>
           <th><div align="center">Action</div></th>
         </tr>
         </thead>
@@ -72,17 +71,17 @@ if(isset($_GET['approveid']))
 			    <td>&nbsp;$rs[app_reason]</td>
 			    <td>&nbsp;$rs[status]</td>
           <td><div align='center'>";
-		  if($rs['status'] != "Approved")
+		  if($rs['status'] != "Approuvé")
 		  {
 				  if(!(isset($_SESSION['patientid'])))
 				  {
-						  echo "<a href='appointmentapproval.php?editid=$rs[appointmentid]'>Approve</a><hr>";
+						  echo "<a href='appointmentapproval.php?editid=$rs[appointmentid]'>Approuver</a><hr>";
 				  }
-				 echo "  <a href='viewappointment.php?delid=$rs[appointmentid]'>Delete</a>";
+				 echo "  <a href='viewappointment.php?delid=$rs[appointmentid]'>Supprimer</a>";
 		  }
 		  else
 		  {
-				echo "<a href='patientreport.php?patientid=$rs[patientid]&appointmentid=$rs[appointmentid]' class='btn btn-raised bg-green'>View Report</a>";
+				echo "<a href='patientreport.php?patientid=$rs[patientid]&appointmentid=$rs[appointmentid]' class='btn btn-raised bg-green'>Voir le rapport</a>";
 		  }
 		 echo "</center></td></tr>";
 		}

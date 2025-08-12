@@ -4,10 +4,10 @@ include("header.php");
 include("dbconnection.php");
 if(isset($_POST['submit']))
 {
-		$sql ="INSERT INTO payment(patientid,appointmentid,paiddate,paidtime,paidamount,status) values('$_GET[patientid]','$_GET[appointmentid]','$_POST[date]','$_POST[time]','$_POST[paidamount]','Active')";
+		$sql ="INSERT INTO payment(patientid,appointmentid,paiddate,paidtime,paidamount,status) values('$_GET[patientid]','$_GET[appointmentid]','$_POST[date]','$_POST[time]','$_POST[paidamount]','Actif')";
 		if($qsql = mysqli_query($con,$sql))
 		{
-			echo "<script>alert('payment record inserted successfully...');</script>";
+			echo "<script>alert('Enregistrement du paiement inséré avec succès...');</script>";
 		}
 		else
 		{
@@ -35,7 +35,7 @@ $billappointmentid = $_GET['appointmentid'];
 <div class="wrapper col2">
   <div id="breadcrumb">
     <ul>
-      <li class="first">Payment Detail</li></ul>
+      <li class="first">Détail du paiement</li></ul>
   </div>
 </div>
 <div class="wrapper col4">
@@ -44,24 +44,24 @@ $billappointmentid = $_GET['appointmentid'];
     <table width="515" border="3">
      <thead>
         <tr>
-          <th colspan="2">&nbsp;Add payment details.. </th>
+          <th colspan="2">&nbsp;Ajouter les détails du paiement.. </th>
           </tr>
           </thead>
            <tbody>
         <tr>
-          <td width="34%">Paid Date</td>
+          <td width="34%">Date de paiement</td>
           <td width="66%"><input type="date" value="<?php echo date("Y-m-d"); ?>" name="date" id="date"></td>
         </tr>
         <tr>
-          <td>Paid Time</td>
+          <td>Heure de paiement</td>
           <td><input type="text" readonly="readonly" value="<?php echo date("H:i:s"); ?>" name="time" id="time"></td>
         </tr>
         <tr>
-          <td>Paid Amount</td>
+          <td>Montant payé</td>
           <td><input name="paidamount" type="text" id="paidamount" value="0"></td>
         </tr>
         <tr>
-          <td colspan="2" align="center"><input type="submit" name="submit" id="submit" value="Submit" /></td>
+          <td colspan="2" align="center"><input type="submit" name="submit" id="submit" value="Soumettre" /></td>
         </tr>
       </tbody>
     </table>
@@ -75,7 +75,7 @@ include("viewpaymentreport.php");
 <table width="342" border="3">
 <thead>
   <tr>
-          <td colspan="2" align="center"><a href='patientreport.php?patientid=<?php echo $_GET['patientid']; ?>'><strong>View Patient Report>></strong></a></td>
+          <td colspan="2" align="center"><a href='patientreport.php?patientid=<?php echo $_GET['patientid']; ?>'><strong>Voir le rapport du patient >></strong></a></td>
         </tr>
       </thead>
     </table>

@@ -5,8 +5,7 @@ include("dbconnection.php");
 
 <div class="container-fluid">
   <div class="block-header">
-    <h2 class="text-center">Doctor Timings</h2>
-
+    <h2 class="text-center">Horaires des médecins</h2>
   </div>
 
 <div class="card">
@@ -16,9 +15,9 @@ include("dbconnection.php");
 
       <thead>
         <tr>
-          <th width="15%" height="36"><div align="center">Doctor Name</div></th>
-          <th width="20%"><div align="center">Start Time</div></th>
-          <th width="20%"><div align="center">End Time</div></th>
+          <th width="15%" height="36"><div align="center">Nom du médecin</div></th>
+          <th width="20%"><div align="center">Heure de début</div></th>
+          <th width="20%"><div align="center">Heure de fin</div></th>
         </tr>
       </thead>
       <tbody>

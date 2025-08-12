@@ -13,24 +13,24 @@ include('dbconnection.php');
                     <!-- Intro Detail -->
                     <div class="col-md-7">
                         <div class="text-sec padding-right-0">
-                            <h5>Health Check Ups</h5>
-                            <p>This App providing  clinical lab services</p>
+                            <h5>Bilan De Santé</h5>
+                            <p>Cette application fournit des services de laboratoire clinique</p>
                             <ul class="row">
                   <li class="col-sm-6">
-                    <h6> <i class="lnr  lnr-checkmark-circle"></i> EMERGENCY CASE</h6>
-                    <p>This app helps hospital in emergecy situation </p>
+                    <h6> <i class="lnr  lnr-checkmark-circle"></i> CAS D'URGENCE</h6>
+                    <p>Cette application aide l’hôpital en situation d’urgence </p>
                   </li>
                   <li class="col-sm-6">
-                    <h6> <i class="lnr  lnr-checkmark-circle"></i> QUALIFIED DOCTORS</h6>
-                    <p>This app helps Qualified doctors for their treatment </p>
+                    <h6> <i class="lnr  lnr-checkmark-circle"></i> MÉDECINS QUALIFIÉS</h6>
+                    <p>Cette application aide les médecins qualifiés dans leurs traitements </p>
                   </li>
                   <li class="col-sm-6">
-                    <h6> <i class="lnr  lnr-checkmark-circle"></i> ONLINE APPOINTMENT</h6>
-                    <p>Book an online appointment today!!! </p>
+                    <h6> <i class="lnr  lnr-checkmark-circle"></i> RENDEZ-VOUS EN LIGNE</h6>
+                    <p>Réservez un rendez-vous en ligne dès aujourd’hui !!! </p>
                   </li>
                   <li class="col-sm-6">
                     <h6> <i class="lnr  lnr-checkmark-circle"></i> Services</h6>
-                    <p>Avail the Services of this app at the touch of your finger</p>
+                    <p>Profitez des services de cette application du bout des doigts</p>
                   </li>
                 </ul>
               </div>

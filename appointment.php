@@ -9,7 +9,7 @@ if(isset($_POST['submit']))
    $sql ="UPDATE appointment SET patientid='$_POST[select4]',departmentid='$_POST[select5]',appointmentdate='$_POST[appointmentdate]',appointmenttime='$_POST[time]',doctorid='$_POST[select6]',status='$_POST[select]' WHERE appointmentid='$_GET[editid]'";
    if($qsql = mysqli_query($con,$sql))
    {
-    echo "<script>alert('appointment record updated successfully...');</script>";
+    echo "<script>alert('Enregistrement du rendez-vous mis à jour avec succès...');</script>";
 }
 else
 {
@@ -26,7 +26,7 @@ else
    {
 
     include("insertbillingrecord.php");	
-    echo "<script>alert('Appointment record inserted successfully...');</script>";
+    echo "<script>alert('Enregistrement du rendez-vous inséré avec succès...');</script>";
     echo "<script>window.location='patientreport.php?patientid=$_POST[select4]';</script>";
 }
 else
@@ -47,14 +47,13 @@ if(isset($_GET['editid']))
 
 <div class="container-fluid">
     <div class="block-header">
-        <h2 class="text-center">Book Appointment</h2>
+        <h2 class="text-center">Prendre Rendez-vous</h2>
     </div>
     <div class="row clearfix">
         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
             <div class="card">
                 <div class="header">
-                    <h2>Appointment Information </h2>
-
+                    <h2>Informations sur le rendez-vous </h2>
                 </div>
                 <form method="post" action="" name="frmappnt" onSubmit="return validateform()">
                     <input type="hidden" name="select2" value="Offline">
@@ -69,14 +68,14 @@ if(isset($_GET['editid']))
                                           $sqlpatient= "SELECT * FROM patient WHERE patientid='$_GET[patid]'";
                                           $qsqlpatient = mysqli_query($con,$sqlpatient);
                                           $rspatient=mysqli_fetch_array($qsqlpatient);
-                                          echo $rspatient['patientname'] . " (Patient ID - $rspatient[patientid])";
+                                          echo $rspatient['patientname'] . " (ID Patient - $rspatient[patientid])";
                                           echo "<input type='hidden' name='select4' value='$rspatient[patientid]'>";
                                       }
                                       else
                                       {
                                           ?>
                                         <select name="select4" id="select4" class=" form-control show-tick">
-                                            <option value="">Select Patient</option>
+                                            <option value="">Sélectionner un patient</option>
                                             <?php
                                             $sqlpatient= "SELECT * FROM patient WHERE status='Active'";
                                             $qsqlpatient = mysqli_query($con,$sqlpatient);
@@ -105,7 +104,7 @@ if(isset($_GET['editid']))
                                 <div class="form-group">
                                     <div class="form-line">
                                         <select name="select5" id="select5" class=" form-control show-tick">
-                                            <option value="">Select</option>
+                                            <option value="">Sélectionner</option>
                                             <?php
                                     $sqldepartment= "SELECT * FROM department WHERE status='Active'";
                                     $qsqldepartment = mysqli_query($con,$sqldepartment);
@@ -150,7 +149,7 @@ if(isset($_GET['editid']))
                                 <div class="form-group">
                                     <div class="form-line">
                                         <select name="select6" id="select6" class=" form-control show-tick">
-                                            <option value="">Select Doctor</option>
+                                            <option value="">Sélectionner un docteur</option>
                                             <?php
                                 $sqldoctor= "SELECT * FROM doctor INNER JOIN department ON department.departmentid=doctor.departmentid WHERE doctor.status='Active'";
                                 $qsqldoctor = mysqli_query($con,$sqldoctor);
@@ -170,27 +169,20 @@ if(isset($_GET['editid']))
                                     </div>
                                 </div>
                             </div>
-
-
-
-
                         </div>
                         <div class="row clearfix">
                             <div class="col-sm-12">
                                 <div class="form-group">
                                     <div class="form-line">
                                         <textarea rows="4" class="form-control no-resize" name="appreason"
-                                            id="appreason" s><?php echo $rsedit['app_reason']; ?></textarea>
-
-
+                                            id="appreason"><?php echo $rsedit['app_reason']; ?></textarea>
                                     </div>
                                 </div>
                             </div>
                             <div class="col-sm-4 ">
                                 <div class="form-group drop-custum">
                                     <select name="select" id="select" class=" form-control show-tick">
-
-                                        <option value="">Select Status</option>
+                                        <option value="">Sélectionner le statut</option>
                                         <?php
                         $arr = array("Active","Inactive");
                         foreach($arr as $val)
@@ -208,13 +200,9 @@ if(isset($_GET['editid']))
                                     </select>
                                 </div>
                             </div>
-
-
                             <div class="col-sm-12">
-
                                 <input type="submit" class="btn btn-raised g-bg-cyan" name="submit" id="submit"
-                                    value="Submit" />
-
+                                    value="Soumettre" />
                             </div>
                         </div>
                     </div>
@@ -224,46 +212,31 @@ if(isset($_GET['editid']))
     </div>
 </div>
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 <?php include 'adfooter.php'; ?>
 <script type="application/javascript">
 function validateform() {
     if (document.frmappnt.select4.value == "") {
-        alert("Patient name should not be empty..");
+        alert("Le nom du patient ne doit pas être vide.");
         document.frmappnt.select4.focus();
         return false;
     }  else if (document.frmappnt.select5.value == "") {
-        alert("Department name should not be empty..");
+        alert("Le nom du département ne doit pas être vide.");
         document.frmappnt.select5.focus();
         return false;
     } else if (document.frmappnt.appointmentdate.value == "") {
-        alert("Appointment date should not be empty..");
+        alert("La date du rendez-vous ne doit pas être vide.");
         document.frmappnt.appointmentdate.focus();
         return false;
     } else if (document.frmappnt.time.value == "") {
-        alert("Appointment time should not be empty..");
+        alert("L'heure du rendez-vous ne doit pas être vide.");
         document.frmappnt.time.focus();
         return false;
     } else if (document.frmappnt.select6.value == "") {
-        alert("Doctor name should not be empty..");
+        alert("Le nom du docteur ne doit pas être vide.");
         document.frmappnt.select6.focus();
         return false;
     } else if (document.frmappnt.select.value == "") {
-        alert("Kindly select the status..");
+        alert("Veuillez sélectionner le statut.");
         document.frmappnt.select.focus();
         return false;
     } else {

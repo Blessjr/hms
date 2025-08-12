@@ -7,15 +7,14 @@ if(isset($_GET['delid']))
 	$qsql=mysqli_query($con,$sql);
 	if(mysqli_affected_rows($con) == 1)
 	{
-		echo "<script>alert('appointment record deleted successfully..');</script>";
+		echo "<script>alert('Enregistrement du traitement supprimé avec succès.');</script>";
 	}
 }
 ?>
 
 <div class="container-fluid">
   <div class="block-header">
-    <h2 class="text-center">View new treatment records</h2>
-
+    <h2 class="text-center">Voir les nouveaux dossiers de traitement</h2>
   </div>
 
   <div class="card">
@@ -24,13 +23,12 @@ if(isset($_GET['delid']))
      <table class="table table-bordered table-striped table-hover js-basic-example dataTable">
      	<thead>
      		 <tr>
-            <td width="71"	scope="col">Treatment type</td>
+            <td width="71"	scope="col">Type de traitement</td>
             <td width="52"	scope="col">Patient</td>
-            <td width="78"	scope="col">Doctor</td>
-            <td width="82"	scope="col">Treatment Description</td>
-            <td width="43"	scope="col">Treatment date</td>
-            <td width="43"	scope="col">Treatment time</td>
-     
+            <td width="78"	scope="col">Médecin</td>
+            <td width="82"	scope="col">Description du traitement</td>
+            <td width="43"	scope="col">Date du traitement</td>
+            <td width="43"	scope="col">Heure du traitement</td>
           </tr>
      	</thead>
         <tbody>

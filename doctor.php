@@ -8,7 +8,7 @@ if(isset($_POST['submit']))
 			$sql ="UPDATE doctor SET doctorname='$_POST[doctorname]',mobileno='$_POST[mobilenumber]',departmentid='$_POST[select3]',loginid='$_POST[loginid]',password='$_POST[password]',status='$_POST[select]',education='$_POST[education]',experience='$_POST[experience]',consultancy_charge='$_POST[consultancy_charge]' WHERE doctorid='$_GET[editid]'";
 		if($qsql = mysqli_query($con,$sql))
 		{
-			echo "<script>alert('doctor record updated successfully...');</script>";
+			echo "<script>alert('Enregistrement du médecin mis à jour avec succès...');</script>";
 		}
 		else
 		{
@@ -20,7 +20,7 @@ if(isset($_POST['submit']))
 	$sql ="INSERT INTO doctor(doctorname,mobileno,departmentid,loginid,password,status,education,experience,consultancy_charge) values('$_POST[doctorname]','$_POST[mobilenumber]','$_POST[select3]','$_POST[loginid]','$_POST[password]','Active','$_POST[education]','$_POST[experience]','$_POST[consultancy_charge]')";
 	if($qsql = mysqli_query($con,$sql))
 	{
-		echo "<script>alert('Doctor record inserted successfully...');</script>";
+		echo "<script>alert('Enregistrement du médecin ajouté avec succès...');</script>";
 	}
 	else
 	{
@@ -39,35 +39,30 @@ if(isset($_GET['editid']))
 
 <div class="container-fluid">
 	<div class="block-header">
-		<h2 class="text-center"> Add New Doctor </h2>
+		<h2 class="text-center"> Ajouter un nouveau médecin </h2>
 	</div>
 	<div class="row clearfix">
 		<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
 			<div class="card">
 
-
 				<form method="post" action="" name="frmdoct" onSubmit="return validateform()" style="padding: 10px">
 
-
-					
-					<div class="form-group"><label>Doctor Name</label> 
+					<div class="form-group"><label>Nom du médecin</label> 
 					<div class="form-line">
-					<input class="form-control" type="text" name="doctorname" id="doctorname" value="<?php echo $rsedit['doctorname']; ?>" />
+					<input placeholder="Entrez le nom du médecin" class="form-control" type="text" name="doctorname" id="doctorname" value="<?php echo $rsedit['doctorname']; ?>" />
 				</div>
 				</div>
 
-
-					<div class="form-group"><label>Mobile Number</label> 
+					<div class="form-group"><label>Numéro de téléphone</label> 
 					<div class="form-line">
-					<input class="form-control" type="text" name="mobilenumber" id="mobilenumber" value="<?php echo $rsedit['mobileno']; ?>"/>
+					<input placeholder="Entrez le numéro de téléphone" class="form-control" type="text" name="mobilenumber" id="mobilenumber" value="<?php echo $rsedit['mobileno']; ?>"/>
 				</div>
 				</div>
 
-
-					<div class="form-group"><label>Department</label> 
+					<div class="form-group"><label>Département</label> 
 						<div class="form-line">
-					<select  name="select3" id="select3" class="form-control show-tick">
-						<option value="">Select</option>
+					<select name="select3" id="select3" class="form-control show-tick">
+						<option value="">Sélectionner</option>
 						<?php
 						$sqldepartment= "SELECT * FROM department WHERE status='Active'";
 						$qsqldepartment = mysqli_query($con,$sqldepartment);
@@ -88,54 +83,49 @@ if(isset($_GET['editid']))
 				</div>
 			</div>
 
-					<div class="form-group"><label>Login ID</label> 
+					<div class="form-group"><label>Identifiant de connexion</label> 
 					<div class="form-line">
-					<input class="form-control" type="text" name="loginid" id="loginid" value="<?php echo $rsedit['loginid']; ?>"/>
+					<input placeholder="Entrez l’identifiant de connexion" class="form-control" type="text" name="loginid" id="loginid" value="<?php echo $rsedit['loginid']; ?>"/>
 				</div>
 				</div>
 
-
-					<div class="form-group"><label>Password</label> 
+					<div class="form-group"><label>Mot de passe</label> 
 					<div class="form-line">
-					<input class="form-control" type="password" name="password" id="password" value="<?php echo $rsedit['password']; ?>"/>
+					<input placeholder="Entrez le mot de passe" class="form-control" type="password" name="password" id="password" value="<?php echo $rsedit['password']; ?>"/>
 				</div>
 				</div>
 
-
-					<div class="form-group"><label>Confirm Password</label> 
+					<div class="form-group"><label>Confirmer le mot de passe</label> 
 					<div class="form-line">
-					<input class="form-control" type="password" name="cnfirmpassword" id="cnfirmpassword" value="<?php echo $rsedit['password']; ?>"/>
+					<input placeholder="Confirmez le mot de passe" class="form-control" type="password" name="cnfirmpassword" id="cnfirmpassword" value="<?php echo $rsedit['password']; ?>"/>
 				</div>
 				</div>
 
-
-					<div class="form-group"><label>Highest Education</label> 
+					<div class="form-group"><label>Diplôme le plus élevé</label> 
 					<div class="form-line">
-					<input class="form-control" type="text" name="education" id="education" value="<?php echo $rsedit['education']; ?>" />
+					<input placeholder="Entrez le diplôme le plus élevé" class="form-control" type="text" name="education" id="education" value="<?php echo $rsedit['education']; ?>" />
 				</div>
 				</div>
 
-
-					<div class="form-group"><label>Experience</label> 
+					<div class="form-group"><label>Expérience (années)</label> 
 					<div class="form-line">
-					<input class="form-control" type="text" name="experience" id="experience" value="<?php echo $rsedit['experience']; ?>"/>
+					<input placeholder="Entrez les années d’expérience" class="form-control" type="text" name="experience" id="experience" value="<?php echo $rsedit['experience']; ?>"/>
 				</div>
 				</div>
 
-
-					<div class="form-group"><label>Consultancy Charge</label> 
+					<div class="form-group"><label>Frais de consultation</label> 
 					<div class="form-line">
-					<input class="form-control" type="text" name="consultancy_charge" id="consultancy_charge" value="<?php echo $rsedit['experience']; ?>"/>
+					<input placeholder="Entrez les frais de consultation" class="form-control" type="text" name="consultancy_charge" id="consultancy_charge" value="<?php echo $rsedit['consultancy_charge']; ?>"/>
 				</div>
 				</div>
 
 					<div class="form-group">
-					<label>Status</label> 
+					<label>Statut</label> 
 					<div class="form-line">
 					<select class="form-control show-tick" name="select" id="select">
-						<option value="" selected="" hidden>Select</option>
+						<option value="" selected="" hidden>Sélectionner</option>
 						<?php
-						$arr= array("Active","Inactive");
+						$arr= array("Actif","Inactif");
 						foreach($arr as $val)
 						{
 							if($val == $rsedit['status'])
@@ -152,11 +142,7 @@ if(isset($_GET['editid']))
 				</div>
 				</div>
 
-
-					
-					<input class="btn btn-default" type="submit" name="submit" id="submit" value="Submit" />
-				
-
+					<input class="btn btn-default" type="submit" name="submit" id="submit" value="Soumettre" />
 
 				</form>
 			</div>
@@ -167,101 +153,101 @@ if(isset($_GET['editid']))
 include("adfooter.php");
 ?>
 <script type="application/javascript">
-var alphaExp = /^[a-zA-Z]+$/; //Variable to validate only alphabets
-var alphaspaceExp = /^[a-zA-Z\s]+$/; //Variable to validate only alphabets and space
-var numericExpression = /^[0-9]+$/; //Variable to validate only numbers
-var alphanumericExp = /^[0-9a-zA-Z]+$/; //Variable to validate numbers and alphabets
-var emailExp = /^[\w\-\.\+]+\@[a-zA-Z0-9\.\-]+\.[a-zA-z0-9]{2,4}$/; //Variable to validate Email ID 
+var alphaExp = /^[a-zA-Z]+$/;
+var alphaspaceExp = /^[a-zA-Z\s]+$/;
+var numericExpression = /^[0-9]+$/;
+var alphanumericExp = /^[0-9a-zA-Z]+$/;
+var emailExp = /^[\w\-\.\+]+\@[a-zA-Z0-9\.\-]+\.[a-zA-z0-9]{2,4}$/;
 
 function validateform()
 {
 	if(document.frmdoct.doctorname.value == "")
 	{
-		alert("Doctor name should not be empty..");
+		alert("Le nom du médecin ne doit pas être vide.");
 		document.frmdoct.doctorname.focus();
 		return false;
 	}
 	else if(!document.frmdoct.doctorname.value.match(alphaspaceExp))
 	{
-		alert("Doctor name not valid..");
+		alert("Nom du médecin invalide.");
 		document.frmdoct.doctorname.focus();
 		return false;
 	}
 	else if(document.frmdoct.mobilenumber.value == "")
 	{
-		alert("Mobile number should not be empty..");
+		alert("Le numéro de téléphone ne doit pas être vide.");
 		document.frmdoct.mobilenumber.focus();
 		return false;
 	}
 	else if(!document.frmdoct.mobilenumber.value.match(numericExpression))
 	{
-		alert("Mobile number not valid..");
+		alert("Numéro de téléphone invalide.");
 		document.frmdoct.mobilenumber.focus();
 		return false;
 	}
 	else if(document.frmdoct.select3.value == "")
 	{
-		alert("Department ID should not be empty..");
+		alert("L'identifiant du département ne doit pas être vide.");
 		document.frmdoct.select3.focus();
 		return false;
 	}
 	else if(document.frmdoct.loginid.value == "")
 	{
-		alert("loginid should not be empty..");
+		alert("L'identifiant de connexion ne doit pas être vide.");
 		document.frmdoct.loginid.focus();
 		return false;
 	}
 	else if(!document.frmdoct.loginid.value.match(alphanumericExp))
 	{
-		alert("loginid not valid..");
+		alert("Identifiant de connexion invalide.");
 		document.frmdoct.loginid.focus();
 		return false;
 	}
 	else if(document.frmdoct.password.value == "")
 	{
-		alert("Password should not be empty..");
+		alert("Le mot de passe ne doit pas être vide.");
 		document.frmdoct.password.focus();
 		return false;
 	}
 	else if(document.frmdoct.password.value.length < 8)
 	{
-		alert("Password length should be more than 8 characters...");
+		alert("Le mot de passe doit comporter plus de 8 caractères.");
 		document.frmdoct.password.focus();
 		return false;
 	}
 	else if(document.frmdoct.password.value != document.frmdoct.cnfirmpassword.value )
 	{
-		alert("Password and confirm password should be equal..");
+		alert("Le mot de passe et la confirmation doivent être identiques.");
 		document.frmdoct.password.focus();
 		return false;
 	}
 	else if(document.frmdoct.education.value == "")
 	{
-		alert("Education should not be empty..");
+		alert("Le champ diplôme ne doit pas être vide.");
 		document.frmdoct.education.focus();
 		return false;
 	}
 	else if(!document.frmdoct.education.value.match(alphaExp))
 	{
-		alert("Education not valid..");
+		alert("Diplôme invalide.");
 		document.frmdoct.education.focus();
 		return false;
 	}
 	else if(document.frmdoct.experience.value == "")
 	{
-		alert("Experience should not be empty..");
+		alert("Le champ expérience ne doit pas être vide.");
 		document.frmdoct.experience.focus();
 		return false;
 	}
 	else if(!document.frmdoct.experience.value.match(numericExpression))
 	{
-		alert("Experience not valid..");
+		alert("Expérience invalide.");
 		document.frmdoct.experience.focus();
 		return false;
 	}
 	else if(document.frmdoct.select.value == "" )
 	{
-		alert("Kindly select the status..");
+		alert("Veuillez sélectionner le statut.");
 		document.frmdoct.select.focus();
 		return false;
 	}

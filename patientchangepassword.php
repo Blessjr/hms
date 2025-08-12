@@ -1,7 +1,5 @@
 <?php
 include("adheader.php");
-
-
 include("dbconnection.php");
 if(isset($_POST['submit']))
 {
@@ -10,14 +8,14 @@ if(isset($_POST['submit']))
 	if(mysqli_affected_rows($con) == 1)
 	{
 		echo "<div class='alert alert-success'>
-                            Password has been updated successfully
+                            Le mot de passe a été mis à jour avec succès
                         </div>
-                        <script>alert('..');</script>";
+                        <script>alert('Le mot de passe a été changé avec succès.');</script>";
 	}
 	else
 	{
 		echo "<div class='alert alert-danger'>
-                            Update Failed
+                            Échec de la mise à jour
                         </div>
                        ";		
 	}
@@ -26,7 +24,7 @@ if(isset($_POST['submit']))
 
 <div class="container-fluid">
     <div class="block-header">
-        <h2 class="text-center"> Patient's Password</h2>
+        <h2 class="text-center">Mot de passe du patient</h2>
     </div>
     <div class="row clearfix">
         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
@@ -34,28 +32,25 @@ if(isset($_POST['submit']))
                <form method="post" action="" name="frmpatchange" onSubmit="return validateform()"
                     style="padding: 10px">
                     <div class="form-group">
-                        <label>Old Password</label>
+                        <label>Ancien mot de passe</label>
                         <div class="form-line">
                             <input class="form-control" type="password" name="oldpassword" id="oldpassword" />
                         </div>
                     </div>
                     <div class="form-group">
-                        <label>New Password</label>
+                        <label>Nouveau mot de passe</label>
                         <div class="form-line">
                             <input class="form-control" type="password" name="newpassword" id="newpassword" />
-
                         </div>
                     </div>
                     <div class="form-group">
-                        <label>Confirm Password</label>
+                        <label>Confirmer le mot de passe</label>
                         <div class="form-line">
                             <input class="form-control" type="password" name="password" id="password" />
                         </div>
                     </div>
 
-                    <input class="btn btn-raised g-bg-cyan" type="submit" name="submit" id="submit" value="Submit" />
-
-
+                    <input class="btn btn-raised g-bg-cyan" type="submit" name="submit" id="submit" value="Valider" />
                 </form>
                 <p>&nbsp;</p>
             </div>
@@ -63,7 +58,6 @@ if(isset($_POST['submit']))
     </div>
     <div class="clear"></div>
 </div>
-</div> 
 
 <?php
 include("adfooter.php");
@@ -73,25 +67,25 @@ function validateform()
 {
 	if(document.frmpatchange.oldpassword.value == "")
 	{
-		alert("Old password should not be empty..");
+		alert("L'ancien mot de passe ne doit pas être vide.");
 		document.frmpatchange.oldpassword.focus();
 		return false;
 	}
 	else if(document.frmpatchange.newpassword.value == "")
 	{
-		alert("New Password should not be empty..");
+		alert("Le nouveau mot de passe ne doit pas être vide.");
 		document.frmpatchange.newpassword.focus();
 		return false;
 	}
 	else if(document.frmpatchange.newpassword.value.length < 6)
 	{
-		alert("New Password length should be more than 6 characters...");
+		alert("Le nouveau mot de passe doit contenir plus de 6 caractères.");
 		document.frmpatchange.newpassword.focus();
 		return false;
 	}
 	else if(document.frmpatchange.newpassword.value != document.frmpatchange.password.value )
 	{
-		alert(" New Password and confirm password should be equal..");
+		alert("Le nouveau mot de passe et la confirmation doivent être identiques.");
 		document.frmpatchange.password.focus();
 		return false;
 	}

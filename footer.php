@@ -4,7 +4,7 @@
         
         <!-- Support -->
         <div class="col-sm-7">
-          <h6>About Us</h6>
+          <h6>APROPOS</h6>
           <div class="about-foot">
             <p>Made By J.P.DANIEL CHRISTOPHER<br>
               PES2UG20CS433<br>

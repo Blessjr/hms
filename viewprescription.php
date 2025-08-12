@@ -7,7 +7,7 @@ if(isset($_GET['delid']))
 	$qsql=mysqli_query($con,$sql);
 	if(mysqli_affected_rows($con) == 1)
 	{
-		echo "<script>alert('prescription deleted successfully..');</script>";
+		echo "<script>alert('Ordonnance supprimée avec succès.');</script>";
 	}
 }
 ?>
@@ -15,12 +15,12 @@ if(isset($_GET['delid']))
 <div class="wrapper col2">
   <div id="breadcrumb">
     <ul>
-      <li class="first">View Prescription</li></ul>
+      <li class="first">Voir l’ordonnance</li></ul>
   </div>
 </div>
 <div class="wrapper col4">
   <div id="container">
-    <h1>View prescription record</h1>
+    <h1>Voir le dossier d’ordonnance</h1>
 <?php
 $sql ="SELECT * FROM prescription";
 $qsql = mysqli_query($con,$sql);
@@ -37,31 +37,29 @@ while($rs = mysqli_fetch_array($qsql))
     <table width="200" border="3">
           <tbody>
             <tr>
-              <td><strong>Doctor</strong></td>
+              <td><strong>Médecin</strong></td>
               <td><strong>Patient</strong></td>
-              <td><strong>Prescription Date</strong></td>
-              <td><strong>Status</strong></td>
+              <td><strong>Date de l’ordonnance</strong></td>
+              <td><strong>Statut</strong></td>
             </tr>
               <?php
             echo "<tr>
               <td>&nbsp;$rsdoctor[doctorname]</td>
               <td>&nbsp;$rspatient[patientname]</td>
-               <td>&nbsp;$rs[prescriptiondate]</td>
-            <td>&nbsp;$rs[status]</td>
-            
+              <td>&nbsp;$rs[prescriptiondate]</td>
+              <td>&nbsp;$rs[status]</td>
             </tr>";
-    
             ?>
           </tbody>
         </table>
         
-      <h1>View Prescription record</h1>
+      <h1>Voir le détail de l’ordonnance</h1>
         <table width="200" border="3">
           <tbody>
             <tr>
-              <td>Medicine</td>
-              <td>Cost</td>
-              <td>Unit</td>
+              <td>Médicament</td>
+              <td>Coût</td>
+              <td>Unité</td>
               <td>Dosage</td>
             </tr>
              <?php
@@ -72,15 +70,14 @@ while($rs = mysqli_fetch_array($qsql))
             echo "<tr>
               <td>&nbsp;$rsprescription_records[medicine_name]</td>
               <td>&nbsp;$rsprescription_records[cost]</td>
-               <td>&nbsp;$rsprescription_records[unit]</td>
-                <td>&nbsp;$rsprescription_records[dosage]</td>
-                  
+              <td>&nbsp;$rsprescription_records[unit]</td>
+              <td>&nbsp;$rsprescription_records[dosage]</td>
             </tr>";
             }
             ?>
             <tr>
               <td colspan="6"><div align="center">
-                <input type="submit" name="print" id="print" value="Print" onclick="myFunction()"/>
+                <input type="submit" name="print" id="print" value="Imprimer" onclick="myFunction()"/>
               </div></td>
               </tr>
           </tbody>
